@@ -44,16 +44,17 @@ async fn main() {
         }
         let res = res.unwrap();
         if res.status() == StatusCode::NOT_FOUND {
-            logger::error(&format!("{}", url));
+            //logger::error(&format!("{}", url));
             tokio::time::sleep(tokio::time::Duration::from_secs(3)).await;
         } else if res.status() == StatusCode::OK {
             logger::success(&format!("{}", url));
             logger::info(&format!("{} requests sent", i));
-            break;
+            //break;
         } else {
             logger::fatal(&format!("Unexpected status code: {} {}", res.status(), url));
             let t = res.text().await.unwrap();
             logger::fatal(&format!("Response: {}", t));
+            break;
         }
     }
 }
